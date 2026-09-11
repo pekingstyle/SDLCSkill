@@ -23,7 +23,7 @@ description: AI 原生软件工程全流程 Skill——驱动 intent→spec→pl
 | spec 已批准，无 plan | 3 Build（stage-3） | plan.md | 工程师盘问并批准后才写码 | 无 plan 写实现码 |
 | plan 已批准 | 3 Build（stage-3） | diff + tests | 工具链自证通过后交人 | 偏离 plan 不同步更新；改测试应试 |
 | 实现中（贯穿） | 4 Test（stage-4） | 通过证明（测试/构建/截图） | 证据来自工具链并贴进报告 | 无反馈环宣称完成 |
-| PR 已打开 | 5 Deploy（stage-5） | REVIEW.md + 合并/部署 | code owner 经分支保护；生产闸门 hook | agent 自批；越过生产闸门 |
+| PR 已打开 | 5 Deploy（stage-5） | REVIEW.md + 合并/部署 | code owner 经分支保护；生产闸门 hook | agent 自批；作者实例出具评审；越过生产闸门 |
 | 告警/事故/复盘/巡检 | 6 Maintain（stage-6） | 诊断 + 新 intent 或修复 PR | 确定性检测；2σ 只读；3σ 仅 gated 通道 | 检测脚本调模型；绕闸门直修 |
 
 **读取策略（省 token 的关键）**：例行且熟悉的任务——本文件已含全部闸门与禁令，直接执行，**不读 stage 细则**；首次执行某阶段、跨系统改动、或对步骤没把握——读对应 `references/stage-N-*.md`（每份 ≤40 行）；**产出工件前必读对应模板**；`governance.md`（架设/度量）、`bindings.md`（换平台）、`scripts/`（装 hook）、`evals/`（配回归）只在架设流程时读，日常任务不读。
@@ -31,7 +31,7 @@ description: AI 原生软件工程全流程 Skill——驱动 intent→spec→pl
 ## 十条铁律（跨阶段，违反即停）
 
 1. 到闸门必须停，输出"可回答的请示"（能被 Go/No-go 回答），不是丢一份报告等人批注。
-2. agent 永不自批：不批自己的代码与部署；日志中 agent 身份与人的身份可区分。
+2. agent 永不自批：不批自己的代码与部署；**评审与实现必须不同上下文实例**——评审者只读工件（diff/plan/spec/政策），不见作者对话与自我评价；日志中 agent 身份与人的身份可区分。
 3. 工件头部引用上游工件（日期/SHA），链不能断。
 4. spec 没有 flagged concerns 一节不算 spec；未解决顾虑不进 Build。
 5. Build 从 plan mode 开始：盘问三连（会破坏什么/最险一步/放弃了什么），到"没见过对话的工程师也能照 plan 实现"为止。

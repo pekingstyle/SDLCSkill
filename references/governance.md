@@ -36,6 +36,9 @@
 **Verifier 子代理定义**（放 `.agents/agents/verifier.md` 或平台等价位置，见 bindings.md）：
 > 在主会话自认为完成时启动。以**全新上下文**重跑全部检查（测试/构建/lint/政策清单），只输出 pass/fail 与证据链接；不得采信主会话的任何中间结论——裁决不被产生代码的假设污染。
 
+**Reviewer 评审实例定义**（子代理，或更推荐的 CI 非交互评审——作者实例接触不到评审运行环境，workflow 文件受分支保护）：
+> 输入**只有**：diff、plan.md、spec.md、政策清单。不读作者会话、不采信作者的自我评价与转述。按 REVIEW.md 逐 pass 显式作答（"发现+证据"或"检查手段+未发现"，禁止留空），含 diff-vs-plan 逐文件核对；输出 REVIEW.md 与 verdict。**作者实例无权出具或修改评审结论**——三角色分工：reviewer 评政策与行为，verifier 跑机械终检，人闸门判意图与风险。
+
 ## 三、受管配置示例（键名随平台而异，概念对照见 `bindings.md`）
 
 ```json

@@ -9,7 +9,7 @@
 | **项目记忆文件** | 每次会话开头被完整读入的仓库级上下文（≤1 页） | `AGENTS.md`（跨工具通用约定，本 Skill 的默认绑定） | `CLAUDE.md`（语义完全相同，仅文件名不同） | 仓库 README 的 "For AI agents" 一节，用 CI 模板分发到各仓库 |
 | **技能目录** | 按触发词加载的制度知识包（frontmatter 触发 + 正文指令） | `.agents/skills/<name>/SKILL.md` | `.claude/skills/<name>/SKILL.md` | 提示模板库 + 在任务说明里人工引用 |
 | **行为闸门（hook）** | 工具调用前/后的事件脚本：allow / ask / block（exit 2 把原因回灌给 agent 自纠） | 平台 hook 配置 | `settings.json` 的 hooks（PreToolUse 等） | **闸门后移**：CI 必过检查 + 分支保护 + CODEOWNERS + 服务端拒绝 |
-| **非交互运行** | CI / 定时任务里无头跑 agent（evals、事故响应） | 平台 CLI 的 headless / 非交互模式 | `claude -p "<prompt>"` | 任意可脚本化的 agent CLI；都没有则 evals 退化为人工执行的检查清单 |
+| **非交互运行** | CI / 定时任务里无头跑 agent（evals、**PR 评审实例**、事故响应） | 平台 CLI 的 headless / 非交互模式 | `claude -p "<prompt>"` | 任意可脚本化的 agent CLI；都没有则 evals 退化为人工执行的检查清单 |
 | **受管配置** | 平台级强制兜底：权限 deny/allow、沙箱、仅受管 hooks、插件来源白名单、最低版本 | 平台管理端策略 | managed settings（示例见 governance.md） | 容器/镜像层限制 + 网络策略（出口白名单）+ 最小权限凭据 |
 
 子代理同理：verifier 定义放 `.agents/agents/verifier.md`（AGENTS.md 系）或 `.claude/agents/verifier.md`（Claude Code）。
