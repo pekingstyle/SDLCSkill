@@ -47,4 +47,6 @@ evals/README.md              # 给"驾驶 agent 的配置"做回归：20–50 �
 
 Adapted from [The AI-Native SDLC playbook](https://claude.com/blog/the-ai-native-sdlc-playbook) (Anthropic, 2026), reworked to be platform-neutral.
 
+本项目实现的是上述文章描述的**方法论**（思想/流程本身不受版权保护）；除注明出处的简短指称外，不含从原文复制的受保护表达。This project implements the methodology described in the article; it contains no protected expression copied from it beyond brief attributed references.
+
 Licensed under the [MIT License](LICENSE).

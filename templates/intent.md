@@ -29,7 +29,7 @@
 
 # Intent: claims status self-service（from 产品评审会想法）
 
-- author: R. Mehta（产品）
+- author: 产品负责人（示例角色）
 - date: 2026-06-02
 - status: accepted
 

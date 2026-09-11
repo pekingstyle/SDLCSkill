@@ -23,8 +23,9 @@ suppress:
 # ---- 填写示例 ----
 # metric: http_5xx_rate（checkout 服务）
 # window: 7d, granularity: 5m
-# 3σ 实战记录（2026-06-11 22:0x，#inc-checkout）：
-#   R. Mehta: Checkout 5xx rate has been climbing since the 21:40 deploy. @agent take a look?
-#   agent:    对比错误签名与部署 diff → 新缓存 key 丢了 tenant id；回滚今天早在 staging 演练过。要我执行吗？
-#   R. Mehta: Go.
-#   agent:    已回滚，5xx 回到带内；post-mortem 已写入 lessons/2026-06-checkout-cache.md
+# 3σ 实战记录（2026-06-11，#inc-checkout 频道；时间线即审计轨迹）：
+#   22:04 值班工程师：结算接口 5xx 自 21:40 部署后持续上升，@agent 排查
+#   22:07 agent：对比错误签名与该次部署 diff，初步定位为缓存 key 缺少租户维度；
+#        回滚预案今早已在 staging 演练——要执行吗？（Go/No-go）
+#   22:08 值班工程师：Go
+#   22:12 agent：回滚完成，5xx 回到带内；复盘已写入 lessons/2026-06-checkout-cache.md

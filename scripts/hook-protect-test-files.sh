@@ -5,7 +5,8 @@
 # 说明：从 stdin 读工具调用 JSON；用分支名/任务标注判断是否修复任务，按你的约定调整 FIX_PATTERN。
 set -euo pipefail
 input=$(cat)
-tool=$(printf '%s' "$input" | grep -o '"tool_name"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*: *"//;s/"$//')
+# 解析失败一律放行到下一个 hook / 默认策略，绝不让护栏脚本本身崩掉（fail-open 仅限解析，不拦截语义）
+tool=$(printf '%s' "$input" | grep -o '"tool_name"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*: *"//;s/"$//') || true
 path=$(printf '%s' "$input" | grep -o '"file_path"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*: *"//;s/"$//') || true
 
 case "$tool" in Edit|Write|MultiEdit|NotebookEdit) ;; *) exit 0 ;; esac

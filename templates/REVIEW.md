@@ -1,4 +1,4 @@
-<!-- Stage 5 产出，置于 PR 内：passes 固定、分级设上限、不表扬、≤400 词、必含 diff-vs-plan；agent 不得自批 -->
+<!-- Stage 5 产出，置于 PR 内：passes 固定、分级设上限、不表扬、≤400 词（中文≤600字）、必含 diff-vs-plan；agent 不得自批 -->
 # REVIEW: PR #<编号> — <标题>（from plan.md <日期>）
 
 - reviewer: <agent 身份>（人的批准在分支保护/code owner 环节，不由 agent 出具）

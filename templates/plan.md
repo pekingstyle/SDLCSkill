@@ -22,7 +22,7 @@
 
 # Plan: claims status self-service（from intent.md 2026-06-02；依据 spec.md 2026-06-06）
 
-- status: approved（engineer: K. Osei, 2026-06-08）
+- status: approved（批准人：实现工程师，2026-06-08）
 
 ## Files that change
 - NEW portal/services/claims-proxy.ts        ← 理赔系统只读代理

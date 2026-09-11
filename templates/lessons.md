@@ -41,7 +41,7 @@
 跨租户命中同一缓存条目 → 5xx 攀升。
 
 ## What fixed it
-回滚 21:40 部署（runbook: rollback-last-deploy，当日早在 staging 演练过；授权：R. Mehta "Go"）。
+回滚 21:40 部署（runbook: rollback-last-deploy，当日早在 staging 演练过；授权：值班工程师答复 "Go"）。
 
 ## What we learned
 - 系统：缓存 key 变更是跨租户安全敏感变更，必须带 tenant 维度测试。

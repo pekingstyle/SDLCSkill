@@ -4,7 +4,7 @@
 # 注册：见 scripts/settings-hooks.example.json
 set -euo pipefail
 input=$(cat)
-tool=$(printf '%s' "$input" | grep -o '"tool_name"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*: *"//;s/"$//')
+tool=$(printf '%s' "$input" | grep -o '"tool_name"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*: *"//;s/"$//') || true
 case "$tool" in Edit|Write|MultiEdit) ;; *) exit 0 ;; esac
 
 # 已在改 plan.md 本身 → 无事
