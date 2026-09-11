@@ -1,0 +1,30 @@
+# Stage 6 控制带定义：确定性检测（检测路径无模型）；1σ log / 2σ 只读诊断 / 3σ gated 提议
+# 用法：放被监控服务仓库，检测脚本读本文件；一次一个指标，基线稳定后再启用 2σ/3σ
+
+metric: http_5xx_rate            # 被监控指标名（Prometheus 查询或 CI API 字段）
+source: prometheus               # prometheus | ci_api | <自定义适配器>
+window: 7d                       # 滚动基线窗口
+granularity: 5m                  # 采样粒度
+stat:
+  type: mean_stddev              # 均值±标准差（Western Electric 规则族的基础）
+  min_baseline_points: 100       # 基线点不足时不启用 2σ/3σ，只 log
+bands:
+  1sigma: { action: log }                    # 记录，不打扰人
+  2sigma: { action: diagnose, mode: read_only }          # agent 只读诊断，产出发现
+  3sigma: { action: propose, routes: [pr, runbook] }     # 只能开修复 PR 或触发预批准 runbook
+notify:
+  channel: "#inc-checkout"        # 事件进来的频道（频道即审计轨迹）
+  mention_agent: true             # @agent 成为 first responder
+runbooks:
+  rollback: "ops/runbooks/rollback-last-deploy.md"   # 必须先在 staging 演练过
+suppress:
+  - during: deploy_windows        # 部署窗口内的正常抖动不误报（按部署日历）
+
+# ---- 填写示例 ----
+# metric: http_5xx_rate（checkout 服务）
+# window: 7d, granularity: 5m
+# 3σ 实战记录（2026-06-11 22:0x，#inc-checkout）：
+#   R. Mehta: Checkout 5xx rate has been climbing since the 21:40 deploy. @agent take a look?
+#   agent:    对比错误签名与部署 diff → 新缓存 key 丢了 tenant id；回滚今天早在 staging 演练过。要我执行吗？
+#   R. Mehta: Go.
+#   agent:    已回滚，5xx 回到带内；post-mortem 已写入 lessons/2026-06-checkout-cache.md

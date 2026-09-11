@@ -1,0 +1,20 @@
+{
+  "//": "hooks 注册示例（展示通用事件语义：工具调用前触发 → 脚本 allow/exit 2 拦截并把 stderr 回灌给 agent 自纠）。各平台的注册格式对照见 references/bindings.md；路径改为你仓库内脚本实际位置。",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": "bash .agents/skills/ai-native-sdlc/scripts/hook-protect-test-files.sh" },
+          { "type": "command", "command": "bash .agents/skills/ai-native-sdlc/scripts/hook-plan-sync.sh" }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "bash .agents/skills/ai-native-sdlc/scripts/hook-production-gate.sh" }
+        ]
+      }
+    ]
+  }
+}
